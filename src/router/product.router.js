@@ -10,7 +10,7 @@ let isAdmin = true
 productsRouter.get ('/', async (req,res) =>{
     productManager.getAll()
     .then(result => res.send(result))
-    .catch(err => res.send({error: 0, message: err}).status(404))
+    .catch(err => res.send.status(404)({error: 0, message: err}))
    })
 
 productsRouter.get ('/:id', async (req, res) => {
@@ -47,5 +47,7 @@ productsRouter.delete ('/"id', async (req, res) => {
     .then(result => res.send(result))
     .catch(err => res.send({error: 0, message: err}))
 })
+
+module.exports = productsRouter
 
 // {error: -1, descripcion: ruta 'x' metodo 'y' no autorizada } min 23 y 24
