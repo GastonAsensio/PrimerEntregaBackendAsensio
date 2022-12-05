@@ -1,14 +1,3 @@
-// ACA PONER MI MANAGER DE PRODUCTOS
-
-/* tengo que manejarlo en persistencia de archivo:
-const pathToFile = 'src/data/products.json' es decir, los productos viven en
-esta base de datos.*/
-
-/* tiene los metodos para buscar todos los productos: 
-(findAll) - (findById) - (createProduct) - (update) - (delete)
-update por id
-delete por id
-*/ 
 /// minuto 20 recorrida de este. tambien minuto 22
 
 const fs = require ('fs')
@@ -16,8 +5,9 @@ const productFile = './src/data/productFile.json'
 
 class ProductManager { /// SAVE
     createProduct = async (product) => {
-        if (!product.id || !product.timestamp || !product.name || !product.description || !product.code || !product.url || !product.price || !product.stock) return { status: "error", message: "Faltan datos" };
+        if (!product.name || !product.description || !product.code || !product.url || !product.price || !product.stock) return { status: "error", message: "Faltan datos" };
         try{
+            let id = 1;
             if(fs.existsSync(productFile)){
                 let data = await fs.promises.readFile(productFile, 'utf-8')
                 let products = JSON.parse(data)
@@ -77,8 +67,8 @@ class ProductManager { /// SAVE
         if (fs.existsSync(productFile)){
             let data = await fs.promises.readFile(productFile, 'utf-8')
             let products = JSON.parse(data)
-            let product = products.find(product => product.id === id)
-            if (product) return {status: 'Perfecto', message: product}
+            let productId = products.find(product => product.id === id)
+            if (productId) return {status: 'Perfecto', message: productId}
             return {status:'error', message: 'No se reconoce el ID'} 
         } else {
             return {status: 'error', message: "Hubo un error"}
@@ -98,10 +88,9 @@ class ProductManager { /// SAVE
 
     deleteAll = async (product) => {
         if (fs.existsSync(productFile)){
-            let data = await fs.promises.readFile(productFile, 'utf-8')
-            let products = JSON.parse(data)
             await fs.promises.unlink(productFile, JSON.stringify())
             return {status: 'Perfecto', message: 'base de datos eliminada'}
+    } else { {status: 'error', message; 'ocurrio un error'}
 
 }
 

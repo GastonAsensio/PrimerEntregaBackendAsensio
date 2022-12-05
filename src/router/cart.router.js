@@ -1,25 +1,26 @@
-/* Cuando me piden unma ruta que llama al carrito, usar el manager de 
-carrito con el metodo creado es decir:
-manager.Create()*/ 
+const express = require ('express')
+const cartRouter = express.Router ()
+const CarritoManager = require ('../controllers/cart.manager.js')
+const carritoManager = new CarritoManager('')
 
-// NO TIENE ADMINISTRADOR.
-
-router.post('/', (req, res) => {
-    res.send ({status: 200, message: 'Post products'})
+cartRouter.post('/', async (req, res) => {
+    carritoManager.createCart()
+    .then()
+    .catch()
 })
 
-router.delete ('/"id', (req, res) => {
+cartRouter.delete ('/"id', async  (req, res) => {
     res.send ({status: 200, message: 'Delete products'})
 })
 
-router.get ('/:id/productos', (req, res) => {
+cartRouter.get ('/:id/productos', async (req, res) => {
     res.send({status: 200, message: 'Products by ID'})
 })
 
-router.post('/:id/productos', (req, res) => {
+cartRouter.post('/:id/productos', async (req, res) => {
     res.send ({status: 200, message: 'Post products'})
 })
 
-router.delete ('/"id/productos/:id_prod', (req, res) => {
+cartRouter.delete ('/"id/productos/:id_prod', async (req, res) => {
     res.send ({status: 200, message: 'Delete products'})
 })

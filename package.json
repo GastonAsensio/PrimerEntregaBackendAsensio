@@ -1,5 +1,5 @@
 {
-  "scripts": {
+ "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
