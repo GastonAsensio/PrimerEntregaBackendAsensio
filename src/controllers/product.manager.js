@@ -1,5 +1,4 @@
 /// minuto 20 recorrida de este. tambien minuto 22
-
 const fs = require ('fs')
 const productFile = './src/data/productFile.json'
 
@@ -19,47 +18,45 @@ class ProductManager { /// SAVE
                 }
                 products.push(product)
                 await fs.promises.writeFile(productFile, JSON.stringify(products, null, 2 ))
-                return {status: 'Perfecto', message: 'Producto creado'}
-            } else {product = {
-                id,
-                timestamp: new Date().toLocaleString(),
-                ...product
+            } else {
+                product = {
+                    id,
+                    timestamp: new Date().toLocaleString(),
+                    ...product
             }
                 await fs.promises.writeFile (productFile, JSON.stringify([product], null, 2 ))
                 return {status: 'Perfecto', message: 'Producto creado'}
             }
+            return product
         } catch (err) {
-            return {status: 'Error', message: "Error en la base de datos" }
+            return {error: 0, message: "Error en la base de datos" }
         }
     }
 
 
-    updateProduct = async (id, obj) => {
+    updateProduct = async (id, updateProduct) => {
+        id = parseInt(id)
         if (!id) return { status: "error", message: "Indique el Id por favor" };
         if (fs.existsSync(productFile)) {
+            let isFound = false
             let data = await fs.promises.readFile(productFile, 'utf-8')
             let products = JSON.parse(data)
-            let newProduct = products.findIndex((prod) => prod.id ===id);
-            if (newProduct !== -1) {
-                products[newProduct] = {
-                    ...products[newProduct],
-                    id: id,
-                    name: obj.name,
-                    description: obj.description,
-                    code: obj.code,
-                    url: obj.url,
-                    price: obj.price,
-                    stock: obj.stock
-            }
-                await fs.promises.writeFile(productFile, JSON.stringify(products, null, 2 ))
-                return { status: "success", message: "Producto Modificado" };
-            }
-                return {status: 'error', message: 'Producto no encontrado'}
+            let newProducts = products.map(item => {
+                if (item.id === id) {
+                    isFound = true
+                    return {
+                        id,
+                        ...updateProduct
+                    }
+                } else return item
+            })
+            if (!isFound) return {error: 0, descripcion: 'Producto no encontrado'}
+            await fs.promises.writeFile(productFile, JSON.stringify(products, null, 2 ))
+            return newProducts.find(item => item.id === id)
         } else {
-            return {status: 'error', message: 'Ocurrio un error'}
+            return {error: 0, descripcion: "no existe la bd"}
         }
     }
-  
 
     getById = async(id) => {
         if (!id) return {status: 'error', message:'se requiere ID'}
@@ -90,24 +87,27 @@ class ProductManager { /// SAVE
         if (fs.existsSync(productFile)){
             await fs.promises.unlink(productFile, JSON.stringify())
             return {status: 'Perfecto', message: 'base de datos eliminada'}
-    } else { {status: 'error', message; 'ocurrio un error'}
-
+    } else {
+        {'error', message; 'ocurrio un error'}
+}
 }
 
     deleteById = async (id) => {
+        id = parseInt(id)
         if (!id) return {status: 'error', message: 'Necesita un ID'}
         if (fs.existsSync(productFile)){
+            let isFound = false
             let data = await fs.promises.readFile(productFile, 'utf-8')
             let products = JSON.parse(data)
-            let newProduct = products.filter(product => product.id !== id)
-            await fs.promises.writeFile(productFile, JSON.stringify(newProduct, null, 2 ))
-            return {status: 'Perfecto', message: 'ID BORRADA'}
+            let newProducts = products.filter(item => item.id !== id)
+            if (products.length !== newProducts.length) isFound= true
+            if (!isFound) return {error: 0, message: "producto no encontrado"}
+            await fs.promises.writeFile(productFile, JSON.stringify(newProducts, null, 2 ))
+            return newProducts
         }else {
-            return {status: 'error', message: "Hubo un error"}
+            return {status: 'error', message: "No existe en base de datos"}
         }
     }
-
-}
 }
 
 module.exports = ProductManager
