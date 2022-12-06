@@ -1,5 +1,3 @@
-// MIRAR Router Desafio 4 y agregar validaciones y errores.
-// minuto 21 recorrida de este.
 const express = require ('express')
 const router = express.Router()
 const ProductManager = require ('../controllers/product.manager.js')

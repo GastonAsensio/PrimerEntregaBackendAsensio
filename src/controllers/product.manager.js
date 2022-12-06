@@ -1,4 +1,3 @@
-/// minuto 20 recorrida de este. tambien minuto 22
 const fs = require ('fs')
 const productFile = './src/data/productFile.json'
 

@@ -1,5 +1,3 @@
-// Minuto 17 - 27 mas completo
-
 const fs = require('fs')
 const path = require('path')
 const pathToFile = './src/data/cartsFile.json'

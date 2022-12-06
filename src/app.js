@@ -14,9 +14,3 @@ app.listen(PORT, () => {
   console.log(` Server Up! on Port: ${PORT} !`);
 });
 
-/* Package.json
-  Para ejecutar en produccion (Glitch) se usa el start  --> npm run start
-  Para ejecutar en local se usa el dev --> npm run dev
-*/
-
-// Poner los STATUS con error correspondiente.
