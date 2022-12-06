@@ -32,7 +32,6 @@ class ProductManager { /// SAVE
         }
     }
 
-
     updateProduct = async (id, updateProduct) => {
         id = parseInt(id)
         if (!id) return { status: "error", message: "Indique el Id por favor" };
@@ -58,9 +57,7 @@ class ProductManager { /// SAVE
     }
 
     getById = async(id) => {
-        if (!id) return {status: 'error', message:'se requiere ID'}
-        if (!fs.existsSync(productFile)) return {error: 0, message: 'No existe en la base de datos'}
-        if (fs.existsSync(productFile)){
+            if (fs.existsSync(productFile)){
             let data = await fs.promises.readFile(productFile, 'utf-8')
             let products = JSON.parse(data)
             let productId = products.find(product => product.id === id)
@@ -82,7 +79,7 @@ class ProductManager { /// SAVE
     }
 }
 
-    deleteAll = async (product) => {
+    deleteAll = async () => {
         if (fs.existsSync(productFile)){
             await fs.promises.unlink(productFile, JSON.stringify())
             return {status: 'Perfecto', message: 'base de datos eliminada'}

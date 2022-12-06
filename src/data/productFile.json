@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": 2,
+    "timestamp": "12/6/2022, 11:07:14 AM",
+    "name": "Correa",
+    "description": "Correa reforzada",
+    "code": 822,
+    "url": "https://imgs.search.brave.com/HYbSA7WXkt_DF7X9iOR8KZIXhQ6szmDlN-JpugVLrEk/rs:fit:474:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5N/UHkyZF9aaFFITWhK/NHhPdlp0WmJ3SGFI/YSZwaWQ9QXBp",
+    "price": 2000,
+    "stock": 20
+  }
+]
